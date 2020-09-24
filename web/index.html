@@ -21,6 +21,32 @@
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
+
+       <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-analytics.js"></script>
+
+
+
+  <!-- Firebase Configuration -->
+  <script>
+    var firebaseConfig = {
+    apiKey: "AIzaSyAhDyTvT3c8iFESOTMKXxCE3oLKHPYFZWo",
+    authDomain: "laquiniela-1c431.firebaseapp.com",
+    databaseURL: "https://laquiniela-1c431.firebaseio.com",
+    projectId: "laquiniela-1c431",
+    storageBucket: "laquiniela-1c431.appspot.com",
+    messagingSenderId: "196980556396",
+    appId: "1:196980556396:web:c312a7b756ccc53c984e49",
+    measurementId: "G-W96N762QR8"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  </script>
+
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {

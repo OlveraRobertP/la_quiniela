@@ -1,4 +1,4 @@
-package com.example.la_quiniela
+package com.robolverap.la_quiniela
 
 import io.flutter.embedding.android.FlutterActivity
 

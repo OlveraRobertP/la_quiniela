@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "196980556396",
+    "firebase_url": "https://laquiniela-1c431.firebaseio.com",
+    "project_id": "laquiniela-1c431",
+    "storage_bucket": "laquiniela-1c431.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196980556396:android:8d54371e6cc23c88984e49",
+        "android_client_info": {
+          "package_name": "com.robolverap.la_quiniela"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "196980556396-ul6pt48fa6si8e0schvqsbtvh3lfspiv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7jO7l6GCCU0TyKwqzgdVwqd81gEzDE9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "196980556396-ul6pt48fa6si8e0schvqsbtvh3lfspiv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
