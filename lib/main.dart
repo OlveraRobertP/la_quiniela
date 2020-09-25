@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:la_quiniela/src/pages/commons/not_found_page.dart';
 import 'package:la_quiniela/src/routes/routes.dart';
@@ -22,7 +23,6 @@ class App extends StatelessWidget {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          print(snapshot.error);
           return Directionality(
             textDirection: TextDirection.rtl,
             child: Text('Errros '),

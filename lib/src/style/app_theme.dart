@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 getAppTheme() => ThemeData(
       // Define the default brightness and colors.
       brightness: Brightness.light,
+      // vino
       primaryColor: Color(0xFF862633),
-      accentColor: Colors.cyan[600],
+      //dorado
+      accentColor: Color(0xFFddcba4),
 
       // Define the default font family.
       fontFamily: 'Georgia',
+
+      buttonTheme: ButtonThemeData(
+        buttonColor: Color(0xFFddcba4),
+      ),
 
       // Define the default TextTheme. Use this to specify the default
       // text styling for headlines, titles, bodies of text, and more.
@@ -16,4 +22,10 @@ getAppTheme() => ThemeData(
         headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
         bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
       ),
+    );
+
+getLoginTheme() => ThemeData(
+      //dorado
+      accentColor: Color(0xFFddcba4),
+      brightness: Brightness.dark,
     );
