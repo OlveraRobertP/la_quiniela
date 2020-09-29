@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:la_quiniela/src/pages/commons/not_found_page.dart';
 import 'package:la_quiniela/src/routes/routes.dart';

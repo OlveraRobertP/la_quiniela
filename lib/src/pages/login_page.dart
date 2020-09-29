@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_builder.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:la_quiniela/src/pages/home_page.dart';
@@ -44,65 +43,88 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           Image(
             image: AssetImage('assets/images/logo.png'),
-            height: 300.0,
-            fit: BoxFit.cover,
+            //height: 300.0,
+            fit: BoxFit.fitHeight,
           ),
           Divider(),
           _crearEmail(),
           Divider(),
           _crearPassword(),
           Divider(),
-          RaisedButton(
-              child: Text('Login'),
-              textColor: Theme.of(context).primaryColor,
-              shape: StadiumBorder(),
-              onPressed: () async {
-                if (_email != null && _password != null) {
-                  await _auth.singInEmail(_email, _password).then((value) {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  }).catchError((e) {
-                    String errorMsg = e.message;
-                    if (e.code == 'user-not-found') {
-                      errorMsg = 'Usuario o Contraseña incorrectos';
-                    } else if (e.code == 'wrong-password') {
-                      errorMsg = 'Usuario o Contraseña incorrectos';
-                    }
-                    mostrarAlert(
-                      context: context,
-                      title: 'Error !!!',
-                      text: '$errorMsg',
-                      onPressedOk: () {
-                        Navigator.of(context).pop();
-                      },
-                    );
-                  });
-                } else {
-                  mostrarAlert(
-                    context: context,
-                    title: 'Error !!!',
-                    text: 'Usuario y Contraseña son obligatorios',
-                    onPressedOk: () {
-                      Navigator.of(context).pop();
-                    },
-                  );
-                }
-              }),
+          _crearLoginButton(),
+          //Divider(),
+          _crearRegistrationButton(),
           Divider(),
           SignInButton(
             Buttons.Google,
+            text: 'Login con cuenta Google',
             shape: StadiumBorder(),
-            onPressed: () {},
+            onPressed: () {
+              setState(() async {
+                await _auth.signInWithGoogle();
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => HomePage()));
+              });
+            },
           ),
-          Divider(),
-          SignInButton(
-            Buttons.FacebookNew,
-            shape: StadiumBorder(),
-            onPressed: () {},
-          ),
+          // Divider(),
+          // SignInButton(
+          //   Buttons.FacebookNew,
+          //   shape: StadiumBorder(),
+          //   onPressed: () {},
+          // ),
         ],
       ),
     );
+  }
+
+  Widget _crearRegistrationButton() {
+    return RaisedButton(
+        child: Text('Registro'),
+        textColor: Theme.of(context).primaryColor,
+        shape: StadiumBorder(),
+        onPressed: () async {
+          Navigator.pushNamed(context, '/registration');
+        });
+  }
+
+  Widget _crearLoginButton() {
+    return RaisedButton(
+        child: Text('Login'),
+        textColor: Theme.of(context).primaryColor,
+        shape: StadiumBorder(),
+        onPressed: () async {
+          if (_email != null && _password != null) {
+            await _auth.singInEmail(_email, _password).then((value) {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+            }).catchError((e) {
+              String errorMsg = e.message;
+              if (e.code == 'user-not-found') {
+                errorMsg = 'Usuario o Contraseña incorrectos';
+              } else if (e.code == 'wrong-password') {
+                errorMsg = 'Usuario o Contraseña incorrectos';
+              }
+              mostrarAlert(
+                context: context,
+                title: 'Error !!!',
+                text: '$errorMsg',
+                onPressedOk: () {
+                  Navigator.of(context).pop();
+                },
+              );
+            });
+          } else {
+            mostrarAlert(
+              context: context,
+              title: 'Error !!!',
+              text: 'Usuario y Contraseña son obligatorios',
+              onPressedOk: () {
+                Navigator.of(context).pop();
+              },
+            );
+          }
+        });
   }
 
   Widget _crearEmail() {

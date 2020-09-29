@@ -26,6 +26,10 @@ dependencies:
   firebase_core: "0.5.0"
   firebase_auth: ^0.18.0+1
   flutter_signin_button: ^1.1.0
+  google_sign_in: "^4.5.1"
+  cloud_firestore: "^0.14.0+2"
+  cloud_functions: "^0.6.0"
+  ntp: ^1.0.7
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -50,6 +54,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/nfl/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

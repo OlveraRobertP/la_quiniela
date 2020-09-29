@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "196980556396-orqr3j043mpsdc88ta9p077dg7r1at79.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.robolverap.la_quiniela",
+            "certificate_hash": "caf60ba616374fe28a09c9a06d693b0f9cb17b55"
+          }
+        },
+        {
           "client_id": "196980556396-ul6pt48fa6si8e0schvqsbtvh3lfspiv.apps.googleusercontent.com",
           "client_type": 3
         }
