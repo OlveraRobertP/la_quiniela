@@ -271,7 +271,7 @@ class _ApuestasPageState extends State<ApuestasPage> {
       initialData: null,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          snapshot.error.toString();
+          print('erorororo ' + snapshot.error.toString());
           return Center(
               child:
                   Text('Error al recuperar informacion: \n ${snapshot.error}'));
