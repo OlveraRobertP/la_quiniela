@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:la_quiniela/src/model/match.dart';
 
 class Bet {
+  String ticketBet;
   String userId;
   Match match;
   bool isHostWin;
@@ -20,7 +21,8 @@ class Bet {
       this.isTie,
       this.localResult,
       this.match,
-      this.userId});
+      this.userId,
+      this.ticketBet});
 
   Bet.fromJson(Map parsedJson) {
     awayResult = parsedJson['awayResult'];
@@ -29,7 +31,7 @@ class Bet {
     isHostWin = parsedJson['isHostWin'];
     isTie = parsedJson['isTie'];
     localResult = parsedJson['localResult'];
-    match = parsedJson['match'];
     userId = parsedJson['userId'];
+    ticketBet = parsedJson['ticketBet'];
   }
 }

@@ -1,6 +1,9 @@
 class Week {
-  int id;
   String description;
 
-  Week(this.id, this.description);
+  Week(this.description);
+
+  Week.fromJson(parsedJson) {
+    description = parsedJson['description'];
+  }
 }
