@@ -79,7 +79,7 @@ class _MisApuestasPageState extends State<MisApuestasPage> {
 
   Widget _cardTypeDouble(Match match, Bet bet) {
     String formatDate(DateTime date) =>
-        new DateFormat("EEEE, d MMMM HH:mm").format(date);
+        new DateFormat("EE, d MMM HH:mm").format(date);
     return Card(
       elevation: 20,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),

@@ -5,7 +5,6 @@ import 'package:la_quiniela/src/services/match_services.dart';
 import 'package:la_quiniela/src/model/match.dart';
 import 'package:intl/intl.dart';
 import 'package:la_quiniela/src/utils/ui_utils.dart';
-import 'package:ntp/ntp.dart';
 
 class TeamCardWidget extends StatefulWidget {
   //String matchId;
@@ -155,7 +154,7 @@ class _ApuestasPageState extends State<ApuestasPage> {
 
   Widget _cardTypeDouble(Match match, Bet bet) {
     String formatDate(DateTime date) =>
-        new DateFormat("EEEE, d MMMM HH:mm").format(date);
+        new DateFormat("EE, d MMM HH:mm").format(date);
     return Card(
       elevation: 20,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -235,7 +234,8 @@ class _ApuestasPageState extends State<ApuestasPage> {
                   );
                 }
 
-                DateTime currentTime = await NTP.now();
+                // DateTime currentTime = await NTP.now();
+                DateTime currentTime = DateTime.now();
                 if (currentTime.isAfter(bet.match.gameDate.toDate())) {
                   bets.remove(key);
                 }
@@ -271,7 +271,6 @@ class _ApuestasPageState extends State<ApuestasPage> {
       initialData: null,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          print('erorororo ' + snapshot.error.toString());
           return Center(
               child:
                   Text('Error al recuperar informacion: \n ${snapshot.error}'));

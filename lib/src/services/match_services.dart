@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:la_quiniela/src/model/bet.dart';
-import 'package:ntp/ntp.dart';
 
 class MatchService {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -40,8 +39,8 @@ class MatchService {
   Future<QuerySnapshot> getMatchsByWeek() async {
     var currWeek = await currentWeekByTournamet('NFL');
 
-    DateTime currentTime = await NTP.now();
-
+    // DateTime currentTime = await NTP.now();
+    DateTime currentTime = DateTime.now();
     return matchs
         .where('week', isEqualTo: currWeek)
         .where('gameDate', isGreaterThanOrEqualTo: currentTime)
@@ -50,14 +49,15 @@ class MatchService {
   }
 
   Future<DocumentReference> _saveBet(String matchId, Bet bet) async {
-    DateTime currentTime = await NTP.now();
+    // DateTime currentTime = await NTP.now();
+    DateTime currentTime = DateTime.now();
     return bets.add({
-      'awayResult': bet.awayResult,
+      'awayResult': bet.awayResult ?? 0.0,
       'isAwayWin': bet.isAwayWin,
       'isBetWin': false,
       'isHostWin': bet.isHostWin,
-      'isTie': bet.isTie,
-      'localResult': bet.localResult,
+      'isTie': bet.isTie ?? false,
+      'localResult': bet.localResult ?? 0.0,
       'userId': _auth.currentUser.uid,
       'date': currentTime,
       'ticketBet': bet.ticketBet,
@@ -88,7 +88,8 @@ class MatchService {
       throw Exception("La apuesta esta vacia");
     }
 
-    DateTime currentTime = await NTP.now();
+    // DateTime currentTime = await NTP.now();
+    DateTime currentTime = DateTime.now();
     return ticketBet.add({
       'week': currWeek,
       'date': currentTime,
@@ -163,6 +164,7 @@ class MatchService {
 
     return weeks
         .where('season', isEqualTo: docsSeason.docs.first.reference)
+        .orderBy('description')
         .get();
   }
 }

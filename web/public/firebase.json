@@ -1,7 +1,7 @@
 {
   "hosting": {
     "public": "public",
-    "site": "applaquiniela",  
+    "site": "applaquiniela",
     "ignore": [
       "firebase.json",
       "**/.*",

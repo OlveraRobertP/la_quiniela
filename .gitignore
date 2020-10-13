@@ -91,4 +91,9 @@ lib/generated_plugin_registrant.dart
 # Ignore all local history of files
 .history
 
+#web
+
+web/public/*
+web/public/assets/*
+
 # End of https://www.toptal.com/developers/gitignore/api/flutter,dart,visualstudiocode
