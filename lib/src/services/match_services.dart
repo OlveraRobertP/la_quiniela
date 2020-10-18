@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:la_quiniela/src/model/bet.dart';
+import 'package:la_quiniela/src/model/resultados.dart';
 
 class MatchService {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -12,6 +13,8 @@ class MatchService {
   CollectionReference weeks = FirebaseFirestore.instance.collection('weeks');
 
   CollectionReference bets = FirebaseFirestore.instance.collection('bets');
+
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   CollectionReference ticketBet =
       FirebaseFirestore.instance.collection('ticketBet');
@@ -166,5 +169,52 @@ class MatchService {
         .where('season', isEqualTo: docsSeason.docs.first.reference)
         .orderBy('description')
         .get();
+  }
+
+  Future<List<Resultados>> getResultsTickeBetsByWeek(
+      String tourna, String week) async {
+    var docsTourn = await tournament.where('name', isEqualTo: tourna).get();
+
+    var docsSeason = await seasons
+        .where('isCurrent', isEqualTo: true)
+        .where('tournament', isEqualTo: docsTourn.docs.first.reference)
+        .get();
+
+    var docsWeek = await weeks
+        .where('description', isEqualTo: week)
+        .where('season', isEqualTo: docsSeason.docs.first.reference)
+        .get();
+
+    if (docsWeek.docs.isEmpty) return null;
+
+    var tickets = await ticketBet
+        .where('week', isEqualTo: docsWeek.docs.first.reference)
+        .orderBy('totalRights', descending: true)
+        .get();
+    try {
+      List<Resultados> res = List<Resultados>();
+      List<Resultados> resultados = List<Resultados>();
+
+      tickets.docs.forEach((element) {
+        res.add(Resultados(
+            element.data()['userId'], element.data()['totalRights']));
+      });
+
+      for (var item in res) {
+        DocumentSnapshot u = await this._getUserByUID(item.user);
+        if (u != null && u.data() != null && u.data()['correo'] != null) {
+          item.user = u.data()['correo'];
+        }
+        resultados.add(item);
+      }
+
+      return resultados;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<DocumentSnapshot> _getUserByUID(String uid) async {
+    return users.doc(uid).get();
   }
 }

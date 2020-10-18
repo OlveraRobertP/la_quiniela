@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:la_quiniela/src/pages/nfl/apuestas_page.dart';
+import 'package:la_quiniela/src/pages/nfl/resultados_page.dart';
 
 import '../login_page.dart';
 import 'mis_apuestas.dart';
@@ -19,9 +20,7 @@ class _MainNFLPageState extends State<MainNFLPage> {
     //Center(child: ApuestasPage()),
     ApuestasPage(),
     MisApuestasPage(),
-    Text(
-      'Proximamente',
-    ),
+    ResultadosPage()
   ];
 
   void _onItemTapped(int index) {

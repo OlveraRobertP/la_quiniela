@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 getAppTheme() => ThemeData(
       // Define the default brightness and colors.
       brightness: Brightness.light,
-      // vino
+      // rosa
       primaryColor: Color(0xFF862633),
-      //dorado
+      // blue
       accentColor: Color(0xFFddcba4),
 
       // Define the default font family.

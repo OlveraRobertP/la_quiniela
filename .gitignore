@@ -92,7 +92,8 @@ lib/generated_plugin_registrant.dart
 .history
 
 #web
-
+*.csv
+web/*
 web/public/*
 web/public/assets/*
 
