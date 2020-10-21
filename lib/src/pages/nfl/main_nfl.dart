@@ -4,6 +4,7 @@ import 'package:la_quiniela/src/pages/nfl/apuestas_page.dart';
 import 'package:la_quiniela/src/pages/nfl/resultados_page.dart';
 
 import '../login_page.dart';
+import 'apuestas_partido.dart';
 import 'mis_apuestas.dart';
 
 class MainNFLPage extends StatefulWidget {
@@ -20,7 +21,8 @@ class _MainNFLPageState extends State<MainNFLPage> {
     //Center(child: ApuestasPage()),
     ApuestasPage(),
     MisApuestasPage(),
-    ResultadosPage()
+    ApuestasPorPartidoPage(),
+    ResultadosPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -50,12 +52,17 @@ class _MainNFLPageState extends State<MainNFLPage> {
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          showUnselectedLabels: false,
+          showSelectedLabels: true,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(Icons.attach_money), label: 'Apuesta'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.sports_football_outlined),
                 label: 'Mis Apuestas'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.sports_bar), label: 'Partidos'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.gavel), label: 'Resultados'),
             // BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Partido'),

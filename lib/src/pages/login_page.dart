@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:la_quiniela/src/pages/home_page.dart';
+import 'package:la_quiniela/src/pages/reset_pass_page.dart';
 import 'package:la_quiniela/src/services/auth.dart';
 import 'package:la_quiniela/src/style/app_theme.dart';
 import 'package:la_quiniela/src/utils/ui_utils.dart';
@@ -43,10 +44,9 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           Image(
             image: AssetImage('assets/images/logo.png'),
-            //height: 300.0,
+            height: 300.0,
             fit: BoxFit.fitHeight,
           ),
-          Divider(),
           _crearEmail(),
           Divider(),
           _crearPassword(),
@@ -54,6 +54,18 @@ class _LoginPageState extends State<LoginPage> {
           _crearLoginButton(),
           //Divider(),
           _crearRegistrationButton(),
+          Divider(),
+          FlatButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResetPasswordPage()));
+              },
+              child: Text(
+                'Olvidaste tu contraseña?',
+                style: TextStyle(color: Colors.white),
+              )),
           Divider(),
           SignInButton(
             Buttons.Google,

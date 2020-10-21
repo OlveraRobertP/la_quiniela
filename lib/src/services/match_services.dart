@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:la_quiniela/src/model/bet.dart';
 import 'package:la_quiniela/src/model/resultados.dart';
 
+import 'datatime_service.dart';
+
 class MatchService {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -171,6 +173,16 @@ class MatchService {
         .get();
   }
 
+  Future<QuerySnapshot> getMatchByWeek(String week) async {
+    DateTime currentTime = await Now();
+    var weekSeason = await weeks.doc(week).get();
+
+    return matchs
+        .where('week', isEqualTo: weekSeason.reference)
+        .where('gameDate', isLessThanOrEqualTo: currentTime)
+        .get();
+  }
+
   Future<List<Resultados>> getResultsTickeBetsByWeek(
       String tourna, String week) async {
     var docsTourn = await tournament.where('name', isEqualTo: tourna).get();
@@ -198,6 +210,41 @@ class MatchService {
       tickets.docs.forEach((element) {
         res.add(Resultados(
             element.data()['userId'], element.data()['totalRights']));
+      });
+
+      for (var item in res) {
+        DocumentSnapshot u = await this._getUserByUID(item.user);
+        if (u != null && u.data() != null && u.data()['correo'] != null) {
+          item.user = u.data()['correo'];
+        }
+        resultados.add(item);
+      }
+
+      return resultados;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<List<ApuestasPorPartido>> getApuestasByMatch(String match) async {
+    var docsMatch = await matchs.doc(match).get();
+
+    var tickets =
+        await bets.where('match', isEqualTo: docsMatch.reference).get();
+    try {
+      List<ApuestasPorPartido> res = List<ApuestasPorPartido>();
+      List<ApuestasPorPartido> resultados = List<ApuestasPorPartido>();
+      String ganador = 'Empate';
+
+      tickets.docs.forEach((element) {
+        ganador = 'Empate';
+        if (element.data()['isAwayWin']) {
+          ganador = docsMatch.data()['awayTeam'];
+        } else if (element.data()['isHostWin']) {
+          ganador = docsMatch.data()['hostTeam'];
+        }
+
+        res.add(ApuestasPorPartido(element.data()['userId'], ganador));
       });
 
       for (var item in res) {

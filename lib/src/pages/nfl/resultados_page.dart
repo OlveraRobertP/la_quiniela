@@ -14,7 +14,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
   List<DataColumn> tableColumns = [
     DataColumn(label: Text('Jugador')),
     DataColumn(
-      label: Center(child: Text('Total')),
+      label: Center(child: Text('Totales')),
     ),
   ];
 
@@ -22,11 +22,15 @@ class _ResultadosPageState extends State<ResultadosPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: createPage(),
-      ),
+    return ListView(
+      children: [
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: createPage(),
+          ),
+        )
+      ],
     );
   }
 
@@ -41,7 +45,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
   }
 
   Widget _createTableResults() {
-    double maxWidth = MediaQuery.of(context).size.width * 0.7;
+    // double maxWidth = MediaQuery.of(context).size.width * 0.7;
 
     return FutureBuilder(
       future:
@@ -50,13 +54,12 @@ class _ResultadosPageState extends State<ResultadosPage> {
           (BuildContext context, AsyncSnapshot<List<Resultados>> snapshot) {
         List<Resultados> resultados = snapshot.data;
         if (snapshot.connectionState == ConnectionState.done) {
-          return ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: maxWidth),
-              child: SingleChildScrollView(
-                  child: DataTable(
+          return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(
                 columns: tableColumns,
                 rows: _generateRows(resultados),
-              )));
+              ));
         }
         return new CircularProgressIndicator(
           backgroundColor: Color(0xFF862633),

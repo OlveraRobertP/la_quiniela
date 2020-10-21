@@ -98,3 +98,4 @@ web/public/*
 web/public/assets/*
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,dart,visualstudiocode
+.DS_Store

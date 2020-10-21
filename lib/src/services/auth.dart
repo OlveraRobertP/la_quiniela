@@ -40,6 +40,10 @@ class AuthService {
     // }
   }
 
+  Future<void> resetPassword(String email) {
+    return FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+
   //// Native
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow

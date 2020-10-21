@@ -10,3 +10,10 @@ class Resultados implements Comparable {
     throw totalAciertos.compareTo(other.totalAciertos);
   }
 }
+
+class ApuestasPorPartido {
+  String user;
+  String ganador;
+
+  ApuestasPorPartido(this.user, this.ganador);
+}
