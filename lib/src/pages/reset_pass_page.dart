@@ -57,7 +57,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         textColor: Theme.of(context).primaryColor,
         shape: StadiumBorder(),
         onPressed: () async {
-          if (_email != null) {
+          if (_email == null) {
             mostrarAlert(
               context: context,
               title: 'Error !!!',

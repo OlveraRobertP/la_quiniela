@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:la_quiniela/src/model/bet.dart';
 import 'package:la_quiniela/src/model/resultados.dart';
+import 'package:la_quiniela/src/services/send_notification.dart';
 
 import 'datatime_service.dart';
 
@@ -45,7 +46,8 @@ class MatchService {
     var currWeek = await currentWeekByTournamet('NFL');
 
     // DateTime currentTime = await NTP.now();
-    DateTime currentTime = DateTime.now();
+    // DateTime currentTime = DateTime.now();
+    DateTime currentTime = await Now();
     return matchs
         .where('week', isEqualTo: currWeek)
         .where('gameDate', isGreaterThanOrEqualTo: currentTime)
@@ -55,7 +57,8 @@ class MatchService {
 
   Future<DocumentReference> _saveBet(String matchId, Bet bet) async {
     // DateTime currentTime = await NTP.now();
-    DateTime currentTime = DateTime.now();
+    // DateTime currentTime = DateTime.now();
+    DateTime currentTime = await Now();
     return bets.add({
       'awayResult': bet.awayResult ?? 0.0,
       'isAwayWin': bet.isAwayWin,
@@ -86,24 +89,27 @@ class MatchService {
     return docsWeek.docs.first.reference;
   }
 
-  Future<DocumentReference> saveTickeBet(Map<String, Bet> apuestas) async {
+  Future<DocumentReference> saveTickeBet() async {
     var currWeek = await currentWeekByTournamet('NFL');
 
-    if (apuestas == null || apuestas.isEmpty) {
-      throw Exception("La apuesta esta vacia");
-    }
-
     // DateTime currentTime = await NTP.now();
-    DateTime currentTime = DateTime.now();
+    // DateTime currentTime = DateTime.now();
+    DateTime currentTime = await Now();
     return ticketBet.add({
       'week': currWeek,
       'date': currentTime,
       'userId': _auth.currentUser.uid,
-    }).then((tick) {
-      apuestas.forEach((key, value) {
-        value.ticketBet = tick.id;
-        _saveBet(key, value);
-      });
+    });
+  }
+
+  void saveBetsByTicket(Map<String, Bet> apuestas, String ticketId) {
+    if (apuestas == null || apuestas.isEmpty) {
+      throw Exception("La apuesta esta vacia");
+    }
+
+    apuestas.forEach((key, value) {
+      value.ticketBet = ticketId;
+      _saveBet(key, value);
     });
   }
 
