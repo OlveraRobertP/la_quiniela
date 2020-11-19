@@ -5,7 +5,6 @@ import 'package:la_quiniela/src/services/match_services.dart';
 import 'package:la_quiniela/src/model/match.dart';
 import 'package:intl/intl.dart';
 import 'package:la_quiniela/src/utils/ui_utils.dart';
-import 'package:la_quiniela/src/services/send_notification.dart';
 
 class TeamCardWidget extends StatefulWidget {
   //String matchId;
@@ -236,26 +235,31 @@ class _ApuestasPageState extends State<ApuestasPage> {
                 }
 
                 // DateTime currentTime = await NTP.now();
-                // DateTime currentTime = DateTime.now();
-                // if (currentTime.isAfter(bet.match.gameDate.toDate())) {
-                //   bets.remove(key);
-                // }
+                DateTime currentTime = DateTime.now();
+                if (currentTime.isAfter(bet.match.gameDate.toDate())) {
+                  bets.remove(key);
+                }
               });
-
-              DocumentReference ticketBet = await _matchService.saveTickeBet();
-
-              _matchService.saveBetsByTicket(bets, ticketBet.id);
-
-              mostrarAlert(
-                context: context,
-                title: 'Exito !!!',
-                text: 'Apuesta confirmada',
-                onPressedOk: () {
-                  Navigator.of(context).pop();
-                },
-              );
-
-              sendNotification(ticketBet.id);
+              _matchService
+                  .saveTickeBet(bets)
+                  .then((value) => mostrarAlert(
+                        context: context,
+                        title: 'Exito !!!',
+                        text: 'Apuesta confirmada',
+                        onPressedOk: () {
+                          Navigator.of(context).pop();
+                        },
+                      ))
+                  .catchError((e) {
+                mostrarAlert(
+                  context: context,
+                  title: 'Error !!!',
+                  text: '${e.toString()}',
+                  onPressedOk: () {
+                    Navigator.of(context).pop();
+                  },
+                );
+              });
             },
           );
         });
